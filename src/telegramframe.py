@@ -35,8 +35,8 @@ class TelegramFrame:
 🗓Datum: " + str(drive.startdate.strftime("%d.%m.%Y %H:%M")) + "\n \
 🚀Distanz: " + str(round(drive.distance,2)) + "km\n\
 ⏳Dauer: " + str(round(drive.minutes/60,2)) + "h (" + str(round(drive.minutes,2)) + "min)\n\
-📍Start: " + drive.start_location['address']['village'] + " " + drive.start_location['address']['road'] + "\n\
-🏁Ende: " + drive.end_location['address']['village'] + " " + drive.start_location['address']['road'] + "\n\
+📍Start: " + str(drive.start_location.get('address').get('village')) + " " + str(drive.start_location.get('address').get('village')) + "\n\
+🏁Ende: " + str(drive.end_location.get('address').get('village')) + " " + str(drive.start_location.get('address').get('village')) + "\n\
 Bitte wählen Sie einen Fahrer aus:"
 
     def __getKeyboard(self, driveId, drivers):
