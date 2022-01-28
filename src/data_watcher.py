@@ -58,3 +58,9 @@ class Drive:
         self.minutes = minutes or 0
         self.start_location = start_location
         self.end_location = end_location
+
+    def getStartLocationDisplayname(self):
+        return self.start_location.get('displayname')
+        
+    def getEndLocationDisplayname(self):
+        return self.end_location.get('displayname')
