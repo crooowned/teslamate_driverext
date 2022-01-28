@@ -36,7 +36,7 @@ class Datawatcher:
 
     def __saveCache(self):
         arr = dumps(self.cachedDrives)
-        with open('data/cache.json', 'w+') as f:
+        with open('src/data/cache.json', 'w+') as f:
             f.write(arr)
         f.close()
 
@@ -45,7 +45,7 @@ class Datawatcher:
 
     def __loadCache(self):
         try:
-            with open('data/cache.json', 'r') as f:
+            with open('src/data/cache.json', 'r') as f:
                 return loads(f.read())
         except:
             return []
