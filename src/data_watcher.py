@@ -36,7 +36,7 @@ class Datawatcher:
 
     def __saveCache(self):
         arr = dumps(self.cachedDrives)
-        with open('data/cache.json', 'w') as f:
+        with open('data/cache.json', 'w+') as f:
             f.write(arr)
         f.close()
 
