@@ -31,7 +31,13 @@ class TelegramFrame:
         query.answer("Fahrer gespeichert!")
 
     def __getText(self, drive):
-        return "Neue Fahrt 🚙 erkannt!\n🚀Distanz: " + str(round(drive.distance,2)) + "km\n⏳Dauer: " + str(round(drive.minutes/60,2)) + "h (" + str(round(drive.minutes,2)) + "min)\n📍Start: " + str(drive.start_location['display_name']) + "\n🏁Ende: " + str(drive.end_location['display_name'] + "\nBitte wählen Sie einen Fahrer aus:")
+        return "Neue Fahrt 🚙 erkannt!\n \
+🗓Datum: " + str(drive.startdate.strftime("%d.%m.%Y %H:%M")) + "\n \
+🚀Distanz: " + str(round(drive.distance,2)) + "km\n\
+⏳Dauer: " + str(round(drive.minutes/60,2)) + "h (" + str(round(drive.minutes,2)) + "min)\n\
+📍Start: " + drive.start_location['address']['village'] + " " + drive.start_location['address']['road'] + "\n\
+🏁Ende: " + drive.end_location['address']['village'] + " " + drive.start_location['address']['road'] + "\n\
+Bitte wählen Sie einen Fahrer aus:"
 
     def __getKeyboard(self, driveId, drivers):
         keyboard = []
