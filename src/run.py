@@ -1,23 +1,24 @@
-from telegram import Update, ForceReply
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-import psycopg2
+
 import os
 from dotenv import load_dotenv
-
-TELEGRAMTOKEN=os.environ['TELEGRAM_TOKEN']
-db = None
-load_dotenv()
+from threading import Thread
+from telegramframe import TelegramFrame
+from data_watcher import Datawatcher
+from database import Database
 
 def env(str):
     return os.environ[str]
+load_dotenv()
 
-conn = psycopg2.connect("dbname="+env('PG_DB')+" user=" + env('PG_USER') + " password=" + env('PG_PASS') + " host=" + env('PG_HOST') + ' port=' + env('PG_PORT'))
+db = Database(env('PG_DB'),env('PG_USER'),env('PG_PASS'),env('PG_HOST'),env('PG_PORT'))
+tframe = TelegramFrame(env('TELEGRAM_TOKEN'),  env('TELEGRAM_CHAT_IDS').split(','))
+data_watcher = Datawatcher(db, tframe)
+tframe.updateDriveHandler = lambda driveId, driverId: data_watcher.updateDrive(driveId, driverId)
+
+
 
 def run():
-    print('Connecting to bot')
-    updater = Updater(TELEGRAMTOKEN)
-    dispatcher = updater.dispatcher
-    updater.start_polling()
-    updater.idle()
-
+    th = Thread(target=data_watcher.watchDrives)
+    th.start()
+    tframe.start()
 run()
