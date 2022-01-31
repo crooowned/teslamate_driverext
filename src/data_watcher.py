@@ -13,6 +13,7 @@ class Datawatcher:
         self.__migrateDatabase()
         while(True):
             drives = self.db.queryFetchAll("SELECT d.*, sa.raw, sa2.raw FROM drives d LEFT JOIN addresses sa ON sa.id = d.start_address_id LEFT JOIN addresses sa2 ON sa2.id = d.end_address_id WHERE d.driverid IS NULL order by d.start_date asc;")
+            print('New Drives: ' + str(len(drives)))
             for drive in drives:
                 if(drive[0] not in self.cachedDrives):
                     print('New drive: ' + str(drive[0]))
@@ -25,7 +26,7 @@ class Datawatcher:
                     sleep(5)
                     self.cachedDrives.append(drive[0])
                     self.__saveCache()
-            sleep(60*5) # 2min
+            sleep(60*5) # 5min
 
     def updateDrive(self, driveId, driverId):
         self.db.query("UPDATE drives SET driverid = " + str(driverId) + " WHERE id = " + str(driveId) + ";")
