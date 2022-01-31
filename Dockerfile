@@ -6,4 +6,4 @@ COPY . .
 
 RUN pip3 install -r src/requirements.txt
 
-CMD [ "python3", "src/run.py" ]
+CMD [ "python3", "-u","src/run.py" ]
