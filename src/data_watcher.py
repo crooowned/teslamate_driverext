@@ -18,15 +18,14 @@ class Datawatcher:
                 if(drive[0] not in self.cachedDrives):
                     print('New drive: ' + str(drive[0]))
                     if(drive[2] is None):
-                        self.cachedDrives.append(drive[0])
-                        self.__saveCache()
+                        print("Skipping unfinished drive with id: " + str(drive[0]))
                         continue
                     d = Drive(drive[0], drive[1], drive[2], drive[11], drive[12], drive[24], drive[25])
                     self.telegram.askForDrive(d, self.__getDrivers())
                     sleep(5)
                     self.cachedDrives.append(drive[0])
                     self.__saveCache()
-            sleep(60*5) # 5min
+            sleep(60*5) # 5 min
 
     def updateDrive(self, driveId, driverId):
         self.db.query("UPDATE drives SET driverid = " + str(driverId) + " WHERE id = " + str(driveId) + ";")
