@@ -29,6 +29,7 @@ class TelegramFrame:
         driverId = int(query.data.split(':')[1])
         self.updateDriveHandler(driveId, driverId)
         query.answer("Fahrer gespeichert!")
+        self.updater.bot.send_message(reply_to_message_id=query.message.message_id, chat_id=query.message.chat_id, text="Fahrer ausgewählt: " + str(driverId))
 
     def __getText(self, drive):
         return "Neue Fahrt 🚙 erkannt!\n \
